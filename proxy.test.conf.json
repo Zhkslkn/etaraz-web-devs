@@ -1,0 +1,47 @@
+{
+  "/eqyzmet/api": {
+    "target": "https://bp.e-jambyl.kazgisa.kz",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/sedapi": {
+    "target": "https://bp.e-jambyl.kazgisa.kz",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/fileserver/api": {
+    "target": "https://bp.e-jambyl.kazgisa.kz",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/eqyzmet/storage": {
+    "target": "http://e-jambyl.kazgisa.kz",
+    "secure": true,
+    "changeOrigin": true
+  },
+  "/auth": {
+    "target": "http://e-jambyl.kazgisa.kz",
+    "secure": true,
+    "changeOrigin": true
+  },
+  "/geoserver": {
+    "target": "https://dm.e-jambyl.kz",
+    "secure": true,
+    "changeOrigin": true
+  },
+  "/integration/api": {
+    "target": "http://dm.e-jambyl.kazgisa.kz",
+    "secure": true,
+    "changeOrigin": true
+  },
+  "/dutymap/api": {
+    "target": "https://dm.e-jambyl.kz",
+    "secure": true,
+    "changeOrigin": true
+  },
+  "/geoserver/utilities": {
+    "target": "https://e-jambyl.kz:55701",
+    "secure": true,
+    "changeOrigin": true
+  }
+}

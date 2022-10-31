@@ -1,0 +1,43 @@
+<div class="sign_container">
+  <h3>{{'Signing' | translate}}</h3>
+  <div class="form_container">
+    <div class="field_width flex-container subscribe_email" *ngIf="false">
+      <div>
+        <p>{{'ReceiveEmailNotification' | translate }}:</p>
+      </div>
+      <div class="email_input">
+        <input matInput [formControl]="subscribeEmail" placeholder="Email">
+        <mat-error *ngIf="subscribeEmail.hasError('email')">
+          {{'EnterValidEmail'|translate}}
+        </mat-error>
+      </div>
+    </div>
+    <div class="checkbox_sign">
+      <mat-checkbox (change)="userAgreed($event)">
+
+      </mat-checkbox>
+      <span *ngIf="currentLang === 'kk'">«Мен, осы Бағдарламаға өтінім бере отырып, жоғарыда өзім ұсынған барлық мәліметтердің шындыққа сәйкес
+      толтырылуын және құжаттардың талапқа сай анық әрі дұрыс жүктелуін растаймын және өтінімде толтырылған мәліметтер
+      ұсынылған құжаттарда көрсетілген мәліметтерге сәйкес келмесе конкурстан шеттетілетінім туралы ескертілдім және өз
+      іс әрекетім үшін Қазақстан Республикасының заңнамасы аясында жауаптылық көзделуі мүмкін екендігі туралы
+      хабарландырумен келісемін»</span>
+      <span *ngIf="currentLang === 'ru'">«Я, подавая заявку на данную Программу, подтверждаю, что все представленные выше сведения заполнены
+        достоверно и в соответствии с требованиями документов и предупрежден об отстранении от конкурса, если заполненные в заявке сведения
+        не соответствуют сведениям, указанным в представленных документах, также уведомлен о том, что за свои действия может быть предусмотрена
+        ответственность в рамках законодательства Республики Казахстан»</span>
+    </div>
+
+    <!--<div class="has-error" *ngIf="isCheck">{{'RequiredNextFilesDidNotFilled'|translate}}:<br><br>
+      <span *ngFor="let message of errorMessages">
+        {{message}}<br>
+      </span>
+    </div>-->
+    <div class="field_width buttons_field">
+      <button mat-raised-button class="back_btn" (click)="goBack()">{{'Back' | translate }}</button>
+      <button mat-raised-button class="sign_btn" [disabled]="openWindowForESP"
+              (click)="sendApplication()">{{'SignApplicationAndSend' | translate }}</button>
+    </div>
+  </div>
+</div>
+
+<app-modal-app-submit *ngIf="isModal" (onYes)="submitApplication($event)"></app-modal-app-submit>

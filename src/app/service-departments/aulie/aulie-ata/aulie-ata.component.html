@@ -1,0 +1,193 @@
+<section class="aulie">
+  <header>
+    <button class="btn-blue" (click)="navigateBack()">{{'BackToList' | translate}}</button>
+    <div class="title">
+      <p>{{'AppInformation' | translate}} № {{task?.content?.appId}}</p>
+    </div>
+
+  </header>
+  <div class="applicant-info block">
+    <div class="applicant-info-top">
+      <div class="number">№ {{task?.content?.appId}}</div>
+      <div class="date">
+        <span>{{'Date' | translate}} <b>{{task.createTime | date:'dd.MM.yyyy HH:mm'}}</b></span>
+        <span>{{'planEndDate' | translate}}:</span>
+      </div>
+    </div>
+    <div class="applicant-info-content">
+      <div class="title">
+        <div class="title-box">
+          <p>{{'JustService' | translate}}: </p>
+          <p class="serviceName">“Әулиеата жастары” бағдарламасы</p>
+        </div>
+        <div class="title-box">
+          <p>{{'Applicant' | translate}}: </p>
+          <p><b>{{task?.content?.firstName}} {{task?.content?.lastName}}</b></p>
+        </div>
+      </div>
+      <div class="table count">
+        <table *ngIf="applicantForm"
+               [formGroup]="applicantForm">
+          <tr>
+            <th class="col1">{{'TotalScore' | translate}}: </th>
+            <th class="col2"></th>
+            <th class="col3">{{applicant.total}}</th>
+            <th class="col4"></th>
+          </tr>
+          <tr>
+            <td>{{'FieldActivity' | translate}}: </td>
+            <td><b>{{applicant.industry | translate}}</b></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>{{'WorkExperience' | translate}}:</td>
+
+            <td>
+              <mat-form-field>
+                <input matInput
+                       type="number"
+                       formControlName="workExperiencePoint"
+                       (change)="updateScoreValue('workExperiencePoint')">
+              </mat-form-field>
+            </td>
+
+            <td></td>
+            <td #refMarriageDoc class="pointer" (click)="downloadFiles(applicant.workExperienceProof.objectId)">
+              {{applicant.workExperienceProof?.name}}</td>
+          </tr>
+          <tr>
+            <td>{{'AmountChildren' | translate}}:</td>
+            <td>
+              <mat-form-field>
+                <input matInput
+                       type="number"
+                       formControlName="amountOfChildrenPoint"
+                       (change)="updateScoreValue('amountOfChildrenPoint')">
+              </mat-form-field>
+            </td>
+            <td></td>
+            <td #refMarriageDoc class="pointer" (click)="downloadFiles(applicant.amountOfChildrenDoc.objectId)">
+              {{applicant.amountOfChildrenDoc?.name}}</td>
+          </tr>
+          <tr>
+            <td>{{'NumberYearsMarriage' | translate}}:</td>
+            <td>
+              <mat-form-field>
+                <input matInput
+                       type="number"
+                       formControlName="marriagePoint"
+                       (change)="updateScoreValue('marriagePoint')">
+              </mat-form-field>
+            </td>
+            <td></td>
+            <td #refMarriageDoc class="pointer" (click)="downloadFiles(applicant.marriageDoc.objectId)">
+              {{applicant.marriageDoc?.name}}</td>
+          </tr>
+          <tr>
+            <td>{{'InitialPayment' | translate}}: </td>
+            <td>
+              <mat-form-field>
+                <input matInput
+                       type="number"
+                       formControlName="initialFeePoint"
+                       (change)="updateScoreValue('initialFeePoint')">
+              </mat-form-field>
+            </td>
+            <td></td>
+            <td #refMarriageDoc class="pointer" (click)="downloadFiles(applicant.initialFeeDoc.objectId)">
+              {{applicant.initialFeeDoc?.name}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="answer-tools block">
+    <div class="accordion-form">
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel class="panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="menu-title">
+              {{'Applicant' | translate}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="info-box">
+            <div class="form">
+              <div class="left-box">
+                <div class="controlName">
+                  <span>{{'ApplicantLastName' | translate}}</span>
+                  <input [value]="task?.content?.firstName" disabled />
+                </div>
+                <div class="controlName">
+                  <span>{{'ApplicantFirstName' | translate}}</span>
+                  <input [value]="task?.content?.lastName" disabled />
+                </div>
+                <div class="controlName">
+                  <span>{{'ApplicantMiddleName' | translate}}</span>
+                  <input [value]="task?.content?.secondName" disabled />
+                </div>
+              </div>
+              <div class="right-box">
+                <div class="controlName">
+                  <span>{{'ApplicantIIN' | translate}}</span>
+                  <input [value]="task?.content?.iin" disabled />
+                </div>
+                <div class="controlName">
+                  <span>{{'DateBirth' | translate}}</span>
+                  <input [value]="birthday2" disabled />
+                </div>
+                <div class="controlName">
+                  <span>{{'Citizenship' | translate}}</span>
+                  <input value="Казахстан" disabled />
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="menu-title">
+              {{'ElectronicCopiesDocuments' | translate}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="info-box">
+            <div class="flex-wrap">
+              <div class="files" *ngFor="let file of fileList">
+                {{file.name}}
+                <img src="../../../../assets/icons/download_file.svg" alt="" title="{{'Download' | translate}}" (click)="downloadFiles(file.objectId)">
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="tools">
+
+      <div class="template_b" >
+        <div class="btn_list" style="display: flex;">
+          <div *ngFor="let template of templates;">
+            <mat-button-toggle-group class="confirm_button" style="border-radius: 25px;">
+              <mat-button-toggle (click)="setTemplate(template)"
+                [ngClass]="{'button_agreement': template.approved, 'btn_warn': !template.approved}" mat-raised-button>
+                {{template.nameRu}}
+                <span class="active_links"></span>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </div>
+      </div>
+      <div class="editor">
+        <app-editor [text]="templateData.text" (setText)="setText($event)" [hasComment]="false"></app-editor>
+      </div>
+    </div>
+    <app-aulie-header-arch-specialist *ngIf="app.id"
+                                      [task]="task"
+                                      [sectionId]="sectionId"
+                                      [app]="app"
+                                      [stepProgress$]="stepProgress$"
+                                      (getApplication)="getApplication($event)">
+    </app-aulie-header-arch-specialist>
+
+  </div>
+
+</section>

@@ -1,0 +1,186 @@
+.control_panel input.mat-input-element {
+  width: 100% !important;
+}
+
+mat-form-field,
+mat-radio-group {
+  width: 80%;
+}
+
+.radio_buttons {
+  padding: 3vh 0;
+}
+
+// new mockup design
+.aulie-subservice {
+  font-family: "Roboto-Light", sans-serif;
+  margin-top: 30px;
+  .control_panel {
+    background: #FFFFFF;
+    margin-bottom: 1%;
+    padding: 35px;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+
+    button {
+      font-family: Spectral-Medium, sans-serif;
+      font-size: 14px;
+      color: #fff;
+      background: #0096D5;
+    }
+
+    .header_btn_groups {
+      margin-right: 1%;
+
+      button:nth-child(1) {
+        margin-right: 3%;
+      }
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+      height: 0 !important;
+    }
+
+    input.mat-input-element {
+      background: #ffffff;
+      border: 1px solid #c3c3c3fa;
+      border-radius: 4px;
+      padding: 10px 0px 10px 10px;
+      width: 100%;
+    }
+
+    .mat-form-field-prefix, .mat-form-field-suffix {
+      top: -10px;
+    }
+
+  }
+  .block {
+    width: 100%;
+
+    h3 {
+      margin-left: 35px;
+    }
+
+    span {
+      font-size: 14px;
+    }
+  }
+
+  .group-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+
+    .field {
+      width: 45%;
+
+      mat-form-field {
+        width: 90%;
+      }
+
+      // .mat-form-field-appearance-fill .mat-form-field-flex {
+      //   background-color: rgb(255 255 255 / 4%);
+      // }
+      .mat-form-field-underline {
+        display: none;
+      }
+
+      .mat-form-field-infix {
+        margin-top: -15px;
+      }
+    }
+  }
+
+  .top {
+    input {
+      color: grey !important;
+    }
+  }
+
+  .action {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    .btn {
+      height: 40px;
+      width: fit-content;
+      border: none;
+      min-width: 120px;
+      font-family: Roboto-Bold, sans-serif;
+      font-size: 14px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .btn-green {
+      color: #fff;
+      background: #049f4b;
+    }
+
+    .btn-blue {
+      color: #fff;
+      background: #1896d6;
+    }
+  }
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 13px;
+    width: 92%;
+
+    input {
+      height: 37px;
+      border: 1px solid #c9c9c9;
+      border-radius: 4px;
+    }
+  }
+
+  .select-box {
+    .select {
+      background: #fff!important;
+      border: 1px solid #c9c9c9;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 13px;
+      width: 88%;
+    }
+    .mat-form-field-wrapper{
+      padding-bottom: 13px;
+    }
+  }
+
+  .form-item {
+    margin-bottom: 21px;
+
+    .radio-btn-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    mat-radio-button {
+      margin-left: 13px;
+    }
+
+    mat-radio-button.mat-radio-checked {
+      .mat-radio-inner-circle {
+        // background-color: #049f4b;
+      }
+
+      .mat-radio-outer-circle {
+        // background-color: #049f4b;
+      }
+    }
+  }
+}
+
+// <div class="input-box">
+// <span>{{ 'Возраст' | translate }}*:</span>
+// <input placeholder="{{ 'ApplicantFirstName' | translate }}*" formControlName="age">
+// </div>
+.is-invalid{
+  border: 1px solid red!important;
+}

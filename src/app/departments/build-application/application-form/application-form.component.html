@@ -1,0 +1,233 @@
+<section *ngIf="isShow">
+  <div fxLayout="column" [formGroup]="appForm">
+    <div fxLayout="row" fxFlexOffset="2" fxLayoutAlign="space-between center" class="head_control_panel">
+      <div class="arch_users" fxFlexOffset="2">
+        <p>{{'ClaimCreation' | translate}}:</p>
+      </div>
+      <div>
+        <div fxLayout="row" class="header_btn_groups">
+          <button mat-button *ngIf="!app.id" (click)="validate()">{{'JustCreate' | translate}}</button>
+          <button mat-button *ngIf="app.id" (click)="changeRoute(currentNavLinks[nextNavPosition])">{{'Next' |
+            translate}}
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <div fxLayout="column" class="control_panel">
+      <div fxLayout="column" fxFlex="90" fxFlexOffset="5" fxLayoutAlign="space-between center">
+
+        <mat-form-field *ngIf="isOrgApp ">
+          <mat-label>{{ 'orgName' | translate }}*:</mat-label>
+          <input matInput placeholder="{{ 'orgName' | translate }}*" formControlName="orgName">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="isOrgApp">
+          <mat-label>{{'orgBIN' | translate}}:</mat-label>
+          <input matInput placeholder="{{'orgBIN' | translate}}" formControlName="bin">
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <mat-label>{{ 'ApplicantLastName' | translate }}*:</mat-label>
+          <input matInput placeholder="{{ 'ApplicantLastName' | translate }}*" formControlName="lastName">
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <mat-label>{{ 'ApplicantFirstName' | translate }}*:</mat-label>
+          <input matInput placeholder="{{ 'ApplicantFirstName' | translate }}*" formControlName="firstName">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'ApplicantMiddleName' | translate }}:</mat-label>
+          <input matInput placeholder="{{ 'ApplicantMiddleName' | translate }}" formControlName="secondName">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'ApplicantIIN' | translate }}*:</mat-label>
+          <input matInput placeholder="{{ 'ApplicantIIN' | translate }}*" formControlName="iin">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="subserviceId === 18">
+          <mat-label>{{ 'ApplicantCardNumber' | translate }}:</mat-label>
+          <input matInput (keypress)="checkEventValueCardNumber($event)"
+            placeholder="{{ 'ApplicantCardNumber' | translate }}" formControlName="identityCardNumber">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="subserviceId === 18">
+          <mat-label>{{ 'IssuedByCard' | translate }}:</mat-label>
+          <input matInput placeholder="{{ 'IssuedByCard' | translate }}" formControlName="identityCardDistributor">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'ApplicantAddress' | translate }}*:</mat-label>
+          <input matInput placeholder="{{ 'ApplicantAddress' | translate }}" formControlName="address">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'ApplicantPhoneNumber' | translate }}*:</mat-label>
+          <!--<input type="number" matInput placeholder="{{ 'ApplicantPhoneNumber' | translate }}" formControlName="phone">-->
+          <input matInput ngxPhoneMask formControlName="phone" [maxNumberLength]='12' placeholder="+7 (***) ***-**-**">
+        </mat-form-field>
+
+        <mat-form-field class="field_width" formGroupName="ozoInfo"
+          *ngIf="districtList.length > 0 && subserviceId === 14">
+          <mat-select placeholder="{{'Regions'| translate}}" formControlName="districts" multiple>
+            <mat-select-trigger>
+              {{appForm.controls['ozoInfo']['value'].districts !== null ?
+              appForm.controls['ozoInfo']['value'].districts[0].name : ''}}
+              <span *ngIf="appForm.value.ozoInfo.districts?.length > 1">
+                (+{{appForm.value.ozoInfo.districts.length - 1}} {{appForm.value.ozoInfo.districts?.length === 2 ?
+                'другой' : 'другие'}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let district of districtList" [value]="district">{{district.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-radio-group (change)="changeRadioBtn($event.value)" fxFlex="80" class="radio_buttons"
+          formControlName="otherApplicant" fxLayoutAlign="space-between center">
+          <mat-radio-button #radioButton [value]="false" [checked]="!formControls.otherApplicant.value">
+            <span class="face">{{ 'ApplicantIsCustomer' | translate }}</span>
+          </mat-radio-button>
+          <mat-radio-button #radioButton [value]="true" [checked]="formControls.otherApplicant.value">
+            <span class="face">{{ 'CustomerOtherPerson' | translate }}</span>
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <mat-radio-group fxLayout="column" formControlName="applicantIsOrg" *ngIf="formControls.otherApplicant.value"
+          fxLayoutAlign="start start">
+          <mat-radio-button #radioButton [value]="false" [checked]="!formControls.applicantIsOrg.value">
+            <span class="face">{{ 'CustomerIndividual' | translate }}</span>
+          </mat-radio-button>
+          <mat-radio-button #radioButton [value]="true" [checked]="formControls.applicantIsOrg.value">
+            <span class="face">{{ 'CustomerLegalEntity' | translate }}</span>
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field *ngIf="formControls.otherApplicant.value && !formControls.applicantIsOrg.value">
+          <mat-label>{{ 'CustomerIIN' | translate }}*:</mat-label>
+          <input matInput (keypress)="checkEventValueType($event)" placeholder="{{ 'CustomerIIN' | translate }}*"
+            formControlName="applicantIinBin">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="formControls.otherApplicant.value && formControls.applicantIsOrg.value">
+          <mat-label>{{ 'CustomerBIN' | translate }}:</mat-label>
+          <input matInput (keypress)="checkEventValueType($event)" placeholder="{{ 'CustomerBIN' | translate }}*"
+            formControlName="applicantIinBin">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="formControls.otherApplicant.value && !formControls.applicantIsOrg.value">
+          <mat-label>{{ 'CustomerFIO' | translate }}:</mat-label>
+          <input matInput placeholder="{{ 'CustomerFIO' | translate }}" formControlName="applicantName">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="formControls.otherApplicant.value && formControls.applicantIsOrg.value">
+          <mat-label>{{ 'CustomerOrgName' | translate }}:</mat-label>
+          <input matInput placeholder="{{ 'CustomerOrgName' | translate }}" formControlName="applicantName">
+        </mat-form-field>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</section>
+<section class="aulie-subservice" *ngIf="!isShow">
+  <div fxLayout="column" [formGroup]="appForm">
+
+    <div fxLayout="column" class="control_panel">
+      <div fxLayout="column" fxFlex="90" fxFlexOffset="5" fxLayoutAlign="space-between center">
+        <div class="group-field top">
+          <div fxLayout="column" class="field">
+            <!-- top left info applicant -->
+            <mat-form-field>
+              <mat-label>{{ 'ApplicantLastName' | translate }}*:</mat-label>
+              <input matInput placeholder="{{ 'ApplicantLastName' | translate }}*" formControlName="lastName">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>{{ 'ApplicantFirstName' | translate }}:</mat-label>
+              <input matInput placeholder="{{ 'ApplicantMiddleName' | translate }}" formControlName="firstName">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>{{ 'ApplicantMiddleName' | translate }}*:</mat-label>
+              <input matInput placeholder="{{ 'ApplicantMiddleName' | translate }}*" formControlName="secondName">
+            </mat-form-field>
+          </div>
+          <!-- top right info applicant-->
+          <div fxLayout="column" class="field">
+            <mat-form-field>
+              <mat-label>{{ 'ApplicantIIN' | translate }}*:</mat-label>
+              <input matInput placeholder="{{ '' | translate }}*" formControlName="iin">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>{{ 'DateBirth' | translate }}*:</mat-label>
+              <input matInput placeholder="{{ '' | translate }}*" formControlName="birthday">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>{{ 'Citizenship' | translate }}:</mat-label>
+              <input matInput placeholder="{{ '' | translate }}" formControlName="nationality">
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="block" formGroupName="aulieAtaInfo">
+          <h3>{{ 'ApplicantDetails' | translate }}</h3>
+          <div class="group-field"
+               fxLayout="row"
+               fxLayoutAlign="start center">
+            <div class="field" style="margin-left: 34px">
+              <div class="select-box">
+                <span>{{ 'FieldActivity' | translate }}:</span>
+                  <mat-select class="select" formControlName="industry" [(value)]="hasValueIndustryStatus"
+                              [ngClass]="{ 'is-invalid': submitted && f.industry.errors }">
+                    <mat-option [value]="">
+                      {{ 'SelectFromList' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let service of industryStatusList" [value]="service.value">
+                      {{ service.title | translate }}
+                    </mat-option>
+                  </mat-select>
+              </div>
+            </div>
+          </div>
+          <h3>{{ 'ContactDetails' | translate }}</h3>
+          <pre>
+            {{appFormAulie|json}}
+          </pre>
+          <div class="group-field">
+            <div class="field">
+              <span>{{ 'Email' | translate }}*:</span>
+              <mat-form-field>
+                <input matInput formControlName="mail" [ngClass]="{ 'is-invalid': submitted && f.mail.errors }">
+              </mat-form-field>
+              <!-- <div *ngIf="appFormAulie?.get('email').invalid" class="validation">
+                  <span *ngIf="appFormAulie?.get('email')?.required">Поле email не может быть пустым</span>
+                  <span *ngIf="appFormAulie?.get('email')?.email">Введите корректный email</span>
+                </div> -->
+            </div>
+            <div class="field">
+              <span>{{ 'ContactNumber' | translate }}*:</span>
+              <mat-form-field>
+                <input matInput ngxPhoneMask formControlName="phone"
+                       [maxNumberLength]='12' [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+              </mat-form-field>
+              <!-- <div *ngIf="appForm.get('phone').invalid" class="validation">
+                  <span *ngIf="appForm.get('phone').errors.minlength.requiredLength">Длина не может быть менее 11 символов</span>
+                </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="action">
+          <button *ngIf="!app.id" class="btn btn-blue" (click)="validate()">{{'JustCreate' | translate}}</button>
+          <button *ngIf="app.id" class="btn btn-green" (click)="changeRoute(currentNavLinks[nextNavPosition])">{{'Next'
+            | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

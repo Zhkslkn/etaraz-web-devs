@@ -1,0 +1,27 @@
+<div class="input-form-field-wrapper"
+     fxLayout="column"
+     fxLayoutAlign="space-between stretch"
+     fxLayoutGap="5px">
+  <div *ngIf="title"
+       [ngClass]="{
+         'form-field-title': true,
+         'error-text': invalidControl
+       }">
+    {{ title | translate }}
+  </div>
+
+  <input [ngClass]="{
+           'form-field-input': true,
+           'invalid-input': invalidControl
+         }"
+         [type]="inputType"
+         [placeholder]="placeholder | translate"
+         [formControl]="control"
+         (blur)="onInputBlur($event)"
+         (keyup)="emitKeyUpEvent($event)">
+
+  <div *ngIf="errorKey && invalidControl"
+       class="form-field-error">
+    {{ errorKey | translate }}
+  </div>
+</div>

@@ -1,0 +1,13 @@
+*{
+  font-family: "Roboto Light", sans-serif;
+}
+p {
+  max-height: 150px;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.btn_mess{
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,0 +1,26 @@
+@import "../../../../app/departments/directory/adm-documents-form/adm-documents-form.component.scss";
+
+.app_file_container{
+  .file_container{
+    height: 400px !important;
+  }
+}
+.back_btn, .next_btn {
+  font-family: 'Roboto-Light', sans-serif!important;
+  font-weight: 700!important;
+  font-size: 14px!important;
+  text-transform: uppercase!important;
+  border-radius: 38px!important;
+}
+
+.back_btn {
+  color: #05A1DF!important;
+  background: #fff!important;
+  border: 1px solid #05A1DF!important;
+  margin-right: 15px!important;
+}
+
+.next_btn {
+  color: #fff!important;
+  background: #009846!important;
+}

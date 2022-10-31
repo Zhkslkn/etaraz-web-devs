@@ -1,0 +1,142 @@
+<header>
+  <div fxLayout="row wrap" class="header_middle_elements">
+    <div>
+      <div
+        routerLink="/"
+        fxFlexOffset="2"
+        [fxFlexOffset.md]="0"
+        fxFlex.md="70"
+        fxFlex.sm="70"
+        fxFlex.xs="100"
+        fxFlexAlign.sm="center"
+      >
+        <a (click)="redirectToEServices()"
+          ><img src="../../../assets/icons/logo.svg" class="logo"
+        /></a>
+      </div>
+
+      <!--<div fxFlex="21" fxFlex.md="14" fxFlex.sm="48" fxFlex.xs="100">
+        <p class="header_text" [ngClass]="{'header_text_kz':currentLang ==='kk'}" *ngIf="currentUser"><span
+          *ngIf="currentLang === 'ru'">{{'InformationSystem' | translate}}</span> <span *ngIf="isRoleCom">СЕМ</span> <br>
+          <span *ngIf="isRoleArch">{{'ArchAndGradDepartmend' | translate}}</span>
+          <span *ngIf="isRoleOZO">{{'LandRelDep' | translate}}</span>
+          <span *ngIf="!isRoleCom && !isRoleArch && !isRoleOZO">{{'InformationSystemRGIS' | translate}}</span>
+        </p>
+      </div>-->
+    </div>
+
+    <div class="rigth_header">
+      <div>
+        <button
+          *ngIf="getCorrectUsername()"
+          mat-button
+          class="profile"
+          #profile_btn
+          [matMenuTriggerFor]="menu"
+          matTooltip="{{
+            getUserIIN() + ' ' + getCorrectUsername() + ', ' + getUsername()
+          }}"
+        >
+          <img src="../../../../assets/icons/user.svg" />
+          <span class="profile_iin" *ngIf="getUserIIN()">{{
+            getUserIIN()
+          }}</span>
+          <span>{{ getCorrectUsername() }}</span>
+        </button>
+
+        <button
+          *ngIf="!getCorrectUsername()"
+          (click)="changeRoute()"
+          mat-button
+          class="profile"
+        >
+          Войти
+        </button>
+
+        <mat-menu #menu="matMenu" class="user_menu">
+          <button mat-menu-item class="profile_btns" (click)="logout()">
+            Авторизация
+          </button>
+          <button mat-menu-item class="profile_btns" (click)="logout()">
+            {{ "Exit" | translate }}
+          </button>
+        </mat-menu>
+      </div>
+      <div class="header-lang-wrap">
+        <mat-select
+          disableOptionCentering
+          class="header-lang"
+          [(value)]="selected"
+        >
+          <mat-select-trigger>
+            <div class="lang_selected" *ngIf="currentLang == 'kk'">
+              <!-- <img src="../../../../assets/images/kaz.png"> -->
+              <span>ҚАЗ</span>
+            </div>
+            <div class="lang_selected" *ngIf="currentLang == 'ru'">
+              <!-- <img src="../../../../assets/images/rus.png"> -->
+              <span>РУС</span>
+            </div>
+          </mat-select-trigger>
+          <mat-option
+            mat-button
+            id="lang_kz"
+            class="lang_kz"
+            (click)="switchLang('kk'); onClickChangeDatePickerLang('kk')"
+            value="option1"
+          >
+            <!-- <img class="lang" src="../../../../assets/images/kaz.png"> -->
+            <span>ҚАЗ</span>
+          </mat-option>
+          <mat-option
+            mat-button
+            id="lang_ru"
+            class="lang_ru"
+            (click)="switchLang('ru'); onClickChangeDatePickerLang('ru')"
+            value="option2"
+          >
+            <!-- <img class="lang" src="../../../../assets/images/rus.png"> -->
+            <span>РУС</span>
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="header_bottom_elements"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <div>
+      <button mat-button [disabled]="!currentUser">
+        <a (click)="redirectToEServices()"
+          ><p>{{ "Main" | translate }}</p></a
+        >
+      </button>
+    </div>
+    <!--<div class="active">
+      <button mat-button [disabled]="!currentUser" routerLink="/arch"><p>{{'Room' | translate}}</p></button>
+    </div>-->
+    <div *ngIf="isRoleDutyMap">
+      <button
+        mat-button
+        [disabled]="!currentUser"
+        (click)="redirectToDutyMap()"
+      >
+        <p>{{ "CallCard" | translate }}</p>
+      </button>
+    </div>
+    <!--<div>
+      <p>{{'Profile' | translate}}</p>
+    </div>-->
+    <!--<div>
+      <p>{{'Services' | translate}}</p>
+    </div>-->
+    <div>
+      <button mat-button (click)="showDialogBox()">
+        <p>{{ "Help" | translate }}</p>
+      </button>
+    </div>
+  </div>
+</header>

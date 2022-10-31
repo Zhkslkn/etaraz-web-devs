@@ -1,0 +1,69 @@
+<div class="test-env-access-popup-wrapper"
+     fxLayout="column"
+     fxLayoutAlign="space-between center"
+     fxLayoutGap="10px">
+  <div *ngIf="countdownRunning; else accessFormWrapper"
+       class="warning-block">
+    <div class="warning-title">
+      {{ 'TestEnvironment.Access.Warning.Title' | translate }}
+    </div>
+
+    <div class="warning-text">
+      {{ 'TestEnvironment.Access.Warning.Text' | translate }}
+    </div>
+
+    <div class="countdown-text">
+      {{ countdownT9ns.prefix.value }}
+
+      <span class="countdown-text-tick">
+        {{ countdownTickText }}
+      </span>
+
+      {{ countdownT9ns.suffix.value }}
+    </div>
+  </div>
+
+  <ng-template #accessFormWrapper>
+    <form class="access-form"
+          fxLayout="column"
+          fxLayoutAlign="space-between stretch"
+          fxLayoutGap="5px"
+          method="post"
+          autocomplete="off"
+          [formGroup]="accessForm">
+      <div class="access-form-title">
+        {{ 'Enter' | translate }}
+      </div>
+
+      <app-input-form-field [control]="accessLoginCtrl"
+                            [inputType]="'text'"
+                            [title]="'User'"
+                            [placeholder]="'User'"
+                            [errorKey]="'EnterUserLogin'"
+                            (keyUpEvent)="onKeyUp($event)">
+      </app-input-form-field>
+
+      <app-input-form-field [control]="accessPasscodeCtrl"
+                            [inputType]="'password'"
+                            [title]="'Password'"
+                            [placeholder]="'Password'"
+                            [errorKey]="'EnterPassword'"
+                            (keyUpEvent)="onKeyUp($event)">
+      </app-input-form-field>
+    </form>
+  </ng-template>
+
+  <div fxLayout.gt-xs="row"
+       fxLayout.lt-sm="column"
+       fxLayoutAlign.gt-xs="space-around center"
+       fxLayoutAlign.lt-sm="space-between center"
+       fxLayoutGap="12px">
+    <ng-container *ngFor="let wrapper of buttonWrappers">
+      <button mat-button
+              [ngClass]="wrapper.class"
+              (click)="wrapper.callback()">
+        {{ wrapper.key | translate }}
+      </button>
+    </ng-container>
+  </div>
+</div>

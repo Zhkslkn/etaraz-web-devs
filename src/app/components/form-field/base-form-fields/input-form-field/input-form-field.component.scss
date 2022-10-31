@@ -1,0 +1,5 @@
+@import "../base-form-field/base-form-field.component";
+
+.input-form-field-wrapper {
+  @extend .form-field-wrapper;
+}

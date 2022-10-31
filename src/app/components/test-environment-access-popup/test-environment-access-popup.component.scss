@@ -1,0 +1,102 @@
+@import "roboto-stylesheet";
+
+.test-env-access-popup-wrapper {
+  width: 80vw;
+  min-height: 240px;
+  max-width: 480px;
+  max-height: 80vh;
+  font-family: $font_roboto;
+  padding: 30px;
+  background: #FFFFFF;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+
+  .warning-block {
+    .warning-block-text {
+      word-break: break-word;
+      color: #000000;
+    }
+
+    .warning-title {
+      @extend .warning-block-text;
+      margin-bottom: 23px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .warning-text {
+      @extend .warning-block-text;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 120%;
+      color: #202020;
+    }
+
+    .countdown-text {
+      @extend .warning-block-text;
+      margin-bottom: 27px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #202020;
+
+      .countdown-text-tick {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .access-form {
+    width: 100%;
+
+    &-title {
+      font-weight: 700;
+      font-size: 20px;
+      color: #000000;
+      padding-bottom: 5px;
+    }
+  }
+
+  .action-button {
+    height: 40px;
+    margin: 0 5px;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: $font_roboto;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .redirect-button {
+    @extend .action-button;
+    min-width: 140px;
+    color: #FFFFFF;
+    background: linear-gradient(270deg, #9EC91D 0%, #8EB617 100%);
+  }
+
+  .access-button {
+    @extend .action-button;
+    min-width: 140px;
+    color: #FFFFFF;
+    background: linear-gradient(89.72deg, #00A8EB 0.25%, #0FBBFF 99.76%);
+  }
+
+  .back-button {
+    @extend .action-button;
+    min-width: 120px;
+    color: #030303;
+    background: #FFFFFF;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .login-button {
+    @extend .action-button;
+    min-width: 120px;
+    color: #FFFFFF;
+    background: linear-gradient(89.72deg, #00A8EB 0.25%, #0FBBFF 99.76%);
+    border-radius: 5px;
+  }
+}
